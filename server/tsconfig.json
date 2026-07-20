@@ -1,0 +1,40 @@
+{
+    // Visit https://aka.ms/tsconfig to read more about this file
+    "compilerOptions": {
+        // File Layout
+        "rootDir": "./src",
+        "outDir": "./dist",
+        // Base Options
+        "module": "commonjs",
+        "target": "es2024",
+        "moduleResolution": "bundler",
+        "lib": [
+            "ES2024"
+        ],
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "moduleDetection": "force",
+        // "verbatimModuleSyntax": true, imcopatible with commonjs
+        "forceConsistentCasingInFileNames": true,
+        // Outputs
+        "sourceMap": true,
+        "declaration": false,
+        // Stricter Typechecking Options
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "exactOptionalPropertyTypes": true,
+        // Style Options
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}
