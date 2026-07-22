@@ -12,7 +12,7 @@ app.get('/health', (_req, res) => {
 });
 
 // Routes will mount here later, e.g.:
-app.use('/api/auth/register', authRoutes);
+app.use('/api/auth', authRoutes);
 
 app.use(errorHandler);
 

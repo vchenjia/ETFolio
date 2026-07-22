@@ -1,7 +1,9 @@
 import express, { type Request, type Response } from 'express';
 import { HydratedDocument } from 'mongoose';
 import User, { type IUser, type IUserMethods } from '../models/user.model';
-import jwt from 'jsonwebtoken';
+import { generateToken } from '../utils/jwt';
+import { requireAuth } from '../middleware/auth';
+
 const router = express.Router();
 
 interface RegisterBody {
@@ -28,7 +30,8 @@ router.post('/register', async (req: Request<{}, {}, RegisterBody>, res: Respons
     }
     const newUser: HydratedDocument<IUser> = new User({ username, email, password });
     await newUser.save();
-    res.status(201).json({ message: "New user created succesfully" });
+    const token = generateToken(newUser.id);
+    res.status(201).json({ message: "New user created succesfully", token });
 });
 
 router.post('/login', async (req: Request<{}, {}, LoginBody>, res: Response) => {
@@ -47,8 +50,12 @@ router.post('/login', async (req: Request<{}, {}, LoginBody>, res: Response) => 
         res.status(401).json({ message: "Password is incorrect. Please try again" });
         return;
     }
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET!, {expiresIn: '24h'});
-    res.status(200).json({ token });
+    const token = generateToken(validUser.id);
+    res.status(200).json({ message: "Access succesfully", token });
+});
+
+router.get('/me', requireAuth, (req: Request, res: Response) => {
+    res.status(200).json({ message: 'Authenticated', user: req.user })
 });
 
 export default router
