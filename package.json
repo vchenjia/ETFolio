@@ -1,0 +1,22 @@
+{
+  "name": "etfolio",
+  "version": "1.0.0",
+  "description": "ETF portfolio simulator",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "format": "prettier --write \"**/*.{js,ts,tsx,json,md}\""
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.2.0",
+    "prettier": "^3.0.0"
+  },
+  "prettier": {
+    "useTabs": true,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "importOrder": ["^react$", "^@backend/(.*)$", "^[./]"],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
+  }
+}
