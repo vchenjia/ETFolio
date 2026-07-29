@@ -31,7 +31,8 @@ router.post('/register', async (req: Request<{}, {}, RegisterBody>, res: Respons
     const newUser: HydratedDocument<IUser> = new User({ username, email, password });
     await newUser.save();
     const token = generateToken(newUser.id);
-    res.status(201).json({ message: "New user created succesfully", token });
+    res.cookie("access_token", token, { httpOnly: true, secure: true, sameSite: 'none', maxAge: 1000 * 60 * 60 * 24 * 1 });
+    res.status(201).json({ message: "New user created succesfully" });
 });
 
 router.post('/login', async (req: Request<{}, {}, LoginBody>, res: Response) => {
@@ -51,7 +52,8 @@ router.post('/login', async (req: Request<{}, {}, LoginBody>, res: Response) => 
         return;
     }
     const token = generateToken(validUser.id);
-    res.status(200).json({ message: "Access succesfully", token });
+    res.cookie("access_token", token, { httpOnly: true, secure: true, sameSite: 'none', maxAge: 1000 * 60 * 60 * 24 * 1 });
+    res.status(200).json({ message: "User access successfully" });
 });
 
 router.get('/me', requireAuth, (req: Request, res: Response) => {

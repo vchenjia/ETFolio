@@ -15,18 +15,13 @@ export const requireAuth = (
     res: Response,
     next: NextFunction
 ) => {
-    const rawAuthToken = req.headers.authorization;
-    if (!rawAuthToken || !rawAuthToken.startsWith('Bearer ')) {
+    const authToken = req.cookies.access_token;
+    if (!authToken) {
         res.status(401).json({ message: 'No token provided' });
         return;
     }
-    const authToken = rawAuthToken!.split(' ')[1];
-    if (!authToken) {
-        res.status(401).json({ message: 'Malformed Authorization Header' });
-        return;
-    }
     try {
-        const decodedToken = verifyToken(authToken!);
+        const decodedToken = verifyToken(authToken);
         if (!decodedToken) {
             res.status(401).json({ message: 'Invalid token payload' });
             return;
