@@ -56,6 +56,11 @@ router.post('/login', async (req: Request<{}, {}, LoginBody>, res: Response) => 
     res.status(200).json({ message: "User access successfully" });
 });
 
+router.post('/logout', (_req: Request, res: Response) => { 
+    res.clearCookie('access_token');
+    res.status(200).json({ message: 'Logged out successfully' });
+})
+
 router.get('/me', requireAuth, (req: Request, res: Response) => {
     res.status(200).json({ message: 'Authenticated', user: req.user })
 });
