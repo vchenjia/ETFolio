@@ -1,30 +1,27 @@
-import { useState } from 'react';
-import viteLogo from './assets/vite.svg';
+import { Routes, Route } from "react-router";
 import './app.css';
 
-export function App() {
-    const [count, setCount] = useState(0);
+import { Dashboard } from "./pages/DashboardPage";
+import { Register } from "./pages/RegisterPage";
+import { Login } from "./pages/LoginPage";
+import { Home } from "./pages/Home";
+import AuthLayout from "./components/AuthLayout";
+import ProtectedRoute from "./components/ProtectedRoute";
 
+export default function App() {
     return (
-        <>
-            <section id="center">
-                <div className="hero">
-                    <img src={viteLogo} className="vite" alt="Vite logo" />
-                </div>
-                <div>
-                    <h1>Get started</h1>
-                    <p>
-                        Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-                    </p>
-                </div>
-                <button
-                    type="button"
-                    className="counter"
-                    onClick={() => setCount((count) => count + 1)}
-                >
-                    Count is {count}
-                </button>
-            </section>
-        </>
-    );
-}
+        <Routes>
+            <Route index element={<Home />} />
+
+            <Route element={<AuthLayout />}>
+                <Route path="register" element={<Register />} />
+                <Route path="login" element={<Login />} />
+            </Route>
+            <Route element={<ProtectedRoute />}>
+                <Route path="dashboard" element={<Dashboard />} />
+            </Route>
+
+            <Route path="*" element={<div>404 Page Not Found</div>} />
+        </Routes>
+    )
+};
