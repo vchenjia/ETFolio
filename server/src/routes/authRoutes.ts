@@ -1,8 +1,8 @@
 import express, { type Request, type Response } from 'express';
 import { HydratedDocument } from 'mongoose';
-import User, { type IUser, type IUserMethods } from '../models/user.model';
-import { generateToken } from '../utils/jwt';
-import { requireAuth } from '../middleware/auth';
+import User, { type IUser, type IUserMethods } from '../models/user.model.js';
+import { generateToken } from '../utils/jwt.js';
+import { requireAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 

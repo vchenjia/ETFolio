@@ -5,9 +5,9 @@
         "rootDir": "./src",
         "outDir": "./dist",
         // Base Options
-        "module": "commonjs",
+        "module": "node16",
         "target": "es2024",
-        "moduleResolution": "bundler",
+        "moduleResolution": "node16",
         "lib": [
             "ES2024"
         ],
